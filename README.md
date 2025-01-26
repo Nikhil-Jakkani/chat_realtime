@@ -1,5 +1,5 @@
-#Real-Time Chat Application using M.E.R.N stack
-##Introduction
+# Real-Time Chat Application using M.E.R.N stack
+## Introduction
 Welcome to the MERN Real-Time Chat Application! This project aims to provide seamless communication, enhanced security, optimal data management, and a user-centric design for an engaging chatting experience.
 
 Features
