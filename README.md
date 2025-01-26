@@ -2,7 +2,7 @@
 ## Introduction
 Welcome to the MERN Real-Time Chat Application! This project aims to provide seamless communication, enhanced security, optimal data management, and a user-centric design for an engaging chatting experience.
 
-Features
+### Features
 💬 Real-Time Communication
 Engage in seamless, real-time conversations with instant messaging.
 Integrated WebSocket technology to ensure messages are delivered without delay, improving overall communication speed by 50%.
