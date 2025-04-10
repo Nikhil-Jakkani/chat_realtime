@@ -56,7 +56,7 @@ Welcome to our Real-Time Chat Application! This project is built using the MERN 
 
 1. Clone the repository:
 ```bash
-git clone <repository-url>
+git clone https://github.com/Nikhil-Jakkani/chat_realtime.git
 cd chat_realtime
 ```
 
@@ -94,40 +94,3 @@ Frontend:
 cd frontend
 npm start
 ```
-
-## Usage
-
-1. Register a new account or use the guest login
-2. Create or join chat rooms
-3. Start real-time messaging
-4. Search for other users
-5. Create group chats
-
-## API Endpoints
-
-### Authentication
-- POST `/api/user/register` - Register new user
-- POST `/api/user/login` - User login
-
-### Users
-- GET `/api/user` - Search users
-- GET `/api/user/profile` - Get user profile
-
-### Chats
-- POST `/api/chat/` - Access or create chat
-- GET `/api/chat/` - Get user chats
-- POST `/api/chat/group` - Create group chat
-- PUT `/api/chat/rename` - Rename group
-- PUT `/api/chat/groupadd` - Add user to group
-- PUT `/api/chat/groupremove` - Remove user from group
-
-## Contributing
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## License
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Acknowledgments
-- Thanks to Chakra UI for the amazing component library
-- Socket.io team for the real-time engine
-- MongoDB Atlas for database hosting
