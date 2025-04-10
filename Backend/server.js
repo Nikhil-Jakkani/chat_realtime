@@ -11,7 +11,7 @@ const { notFound, errorHandler } = require('./middleware/errorMiddleware');
 const path=require('path');
 
 // Load environment variables
-dotenv.config();
+dotenv.config({ path: path.join(__dirname, '.env') });
 
 // Connect to the database
 connectDB();
@@ -55,9 +55,38 @@ app.use(errorHandler);
 
 const port = process.env.PORT || 5000;
 
-const server = app.listen(port, () => {
-    console.log(`Server is running at port ${port}`.yellow.bold);
-});
+const startServer = async () => {
+    let currentPort = port;
+    let maxAttempts = 10;
+    let server;
+
+    for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+        try {
+            server = await new Promise((resolve, reject) => {
+                const srv = app.listen(currentPort, () => resolve(srv))
+                    .on('error', (err) => {
+                        if (err.code === 'EADDRINUSE') {
+                            console.log(`Port ${currentPort} is in use, trying ${currentPort + 1}...`.yellow);
+                            currentPort++;
+                            reject(err);
+                        } else {
+                            reject(err);
+                        }
+                    });
+            });
+            console.log(`Server is running at port ${currentPort}`.yellow.bold);
+            return server;
+        } catch (err) {
+            if (attempt === maxAttempts) {
+                console.error(`Could not find an available port after ${maxAttempts} attempts`.red);
+                process.exit(1);
+            }
+            // Continue to next iteration to try next port
+        }
+    }
+};
+
+const server = startServer();
 
 // Set up Socket.io
 const io = require('socket.io')(server, {

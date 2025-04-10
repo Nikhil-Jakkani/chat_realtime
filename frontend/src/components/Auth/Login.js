@@ -55,9 +55,10 @@ const Login = () => {
       history.push('/');
 
     } catch (error) {
+      console.error('Login error:', error);
       toast({
         title: "Error Occurred!",
-        description: error.response?.data?.message || "Something went wrong. Please try again.",
+        description: error.response?.data?.message || error.message || "Something went wrong. Please try again.",
         status: "error",
         duration: 5000,
         isClosable: true,
@@ -110,12 +111,50 @@ const Login = () => {
         variant='solid'
         colorScheme='red'
         width='100%'
-        onClick={() => {
-          setEmail('guest@example.com');
-          setPassword("123456");
+        onClick={async () => {
+          try {
+            setLoading(true);
+            const config = {
+              headers: {
+                "Content-type": "application/json"
+              }
+            };
+
+            const { data } = await axios.post(
+              '/api/user/login',
+              { 
+                email: 'guest@example.com', 
+                password: '123456'
+              },
+              config
+            );
+
+            toast({
+              title: "Login Successful",
+              status: "success",
+              duration: 5000,
+              isClosable: true,
+              position: "bottom",
+            });
+
+            localStorage.setItem('userInfo', JSON.stringify(data));
+            history.push('/');
+          } catch (error) {
+            toast({
+              title: "Error Logging in as Guest",
+              description: error.response?.data?.message || "Failed to login as guest",
+              status: "error",
+              duration: 5000,
+              isClosable: true,
+              position: "bottom",
+            });
+          } finally {
+            setLoading(false);
+          }
         }}
+        isLoading={loading}
       >
-        Get Guest User Credentials
+        Login as Guest User
       </Button>
     </VStack>
   );
